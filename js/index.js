@@ -16,7 +16,6 @@
 	//metatransactions
 	//
 
-	//switch between injected web3 and built in Wallet
 	//reveal seed phrase, import seed phrase
 
 	//save resolver contracts for all testnets in config file
@@ -51,9 +50,9 @@ let metaTransferButton,metaApproveButton,metaTransferFromButton
 
 let txHistory
 
-async function initialize(web3) {
+async function initialize() {
 
-	if (customTokenAddress==undefined){
+	if (tokenAddress==undefined){
 		tokenAddress = defaultTokenAddresses[networkId]
 	}
 
@@ -61,12 +60,9 @@ async function initialize(web3) {
 	etherscanProvider = new ethers.providers.EtherscanProvider(); //what network?
   utils = ethers.utils;
 
-
-
   contract = new ethers.Contract(tokenAddress,tokenABI,wallet)
 	resolverContract = new ethers.Contract(resolverAddresses[networkId],resolverABI,wallet)
 	//registryContract = new ethers.Contract(registrytokenAddress,registryABI,wallet)
-
 	tokenDecimals = await contract.decimals()
 	tokenSymbol = await contract.symbol()
 	utils = ethers.utils;
@@ -149,68 +145,24 @@ async function getBalance(){
 
 async function resolveAddress(ensName){
 		if (ensName.includes(".")){
-			console.log(ensName)
 			let nameHash = utils.namehash(ensName)
 			ensName = await resolverContract.addr(nameHash)
+			console.log(ensName)
 		}
 
 		return ensName
 }
 
-async function updateToken(){
-	let address
+async function updateToken(address){
 	try{
-	address = utils.getAddress(document.getElementById("tokenAddress").value)
 	tokenAddress = await resolveAddress(address);
 }catch {
-	console.log("invalid address")
+	alert("invalid address")
 }
-	initialize(web3)
+	initialize()
 }
 
-function getNetwork() {
-  if (typeof web3 !== 'undefined') {
-     console.log('web3 is enabled')
-     if (web3.currentProvider.isMetaMask === true) {
-       console.log('MetaMask is active')
-     } else {
-       console.log('MetaMask is not available')
-     }
-   } else {
-     console.log('web3 is not found')
-   }
 
-	 web3.eth.getAccounts(function(err, accounts){
-    if (err != null) console.error("An error occurred: "+err);
-    else if (accounts.length == 0) console.log("User is not logged in to MetaMask");
-    else console.log("User is logged in to MetaMask");
-});
-  web3.version.getNetwork((err, netId) => {
-  switch (netId) {
-    case "1":
-      console.log('This is mainnet',netId)
-      break
-    case "2":
-      console.log('This is the deprecated Morden test network. Network ID:',netId)
-      break
-    case "3":
-      console.log('This is the ropsten test network. Network ID:',netId)
-      break
-    case "4":
-      console.log('This is the rinkeby test network. Network ID:',netId)
-      break
-    case "5":
-      console.log('This is the goerli test network. Network ID:',netId)
-      break
-    case "42":
-      console.log('This is the kovan test network. Network ID:',netId)
-      break
-    default:
-      console.log('This is an unknown network. Network ID:',netId)
-  }
-})
-
-}
 
 async function getTxHistoryEth(){
 	console.log("getting ETH tx history")
@@ -398,13 +350,11 @@ async function switchNetwork(){
 
 }
 
-async function switchWallet(web3) {
-	console.log("abcd")
+async function switchWallet() {
 
 		//document.getElementById("mainnet_network").checked=true
 
 		await switchNetwork()
-		console.log("test1")
 		let mnemonic = localStorage.getItem("mnemonic")
 		console.log(mnemonic)
 		if (mnemonic == undefined) {
@@ -413,13 +363,12 @@ async function switchWallet(web3) {
 		} else {
 			wallet = ethers.Wallet.fromMnemonic(mnemonic).connect(ethers.getDefaultProvider(networkName));
 		}
-		console.log("test2")
 		console.log(wallet)
 		walletAddress = wallet.address
 		console.log(walletAddress)
 		enableNetworkButtons()
 		console.log("enabled")
-		initialize(web3)
+		initialize()
 
 }
 
