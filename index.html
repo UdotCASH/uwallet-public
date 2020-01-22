@@ -43,11 +43,11 @@ style it up
 -->
 
 <ul class="flex-container longhand">
-  <input type="radio" name="network" value="1" id="mainnet_network" onchange="switchWallet(web3)" >Mainnet</input>
-  <input type="radio" name="network" value="3" id="ropsten_network" onchange="switchWallet(web3)">Ropsten</input>
-  <input type="radio" name="network" value="42" id="kovan_network" onchange="switchWallet(web3)">Kovan</input>
-  <input type="radio" name="network" value="4" id="rinkeby_network" onchange="switchWallet(web3)">Rinkeby</input>
-  <input type="radio" name="network" value="5" id="goerli_network" onchange="switchWallet(web3)">Goerli</input>
+  <input type="radio" name="network" value="1" id="mainnet_network" onchange="switchWallet()" >Mainnet</input>
+  <input type="radio" name="network" value="3" id="ropsten_network" onchange="switchWallet()">Ropsten</input>
+  <input type="radio" name="network" value="42" id="kovan_network" onchange="switchWallet()">Kovan</input>
+  <input type="radio" name="network" value="4" id="rinkeby_network" onchange="switchWallet()">Rinkeby</input>
+  <input type="radio" name="network" value="5" id="goerli_network" onchange="switchWallet()">Goerli</input>
 </ul>
   <hr>
 
@@ -163,7 +163,7 @@ style it up
   </tr>
 </table>
 <script>
-switchWallet(web3)
+switchWallet()
 </script>
 </body>
 </html>
