@@ -159,7 +159,7 @@ async function updateToken(address){
 }catch {
 	alert("invalid address")
 }
-	initialize()
+initialize()
 }
 
 
@@ -368,6 +368,7 @@ async function switchWallet() {
 		console.log(walletAddress)
 		enableNetworkButtons()
 		console.log("enabled")
+		tokenAddress = undefined
 		initialize()
 
 }
@@ -412,7 +413,6 @@ function timeout(ms) {
 }
 
 async function sendEther(Address,Amount) {
-	alert("sup")
 	let gasPrice = 1
 	Amount = utils.parseUnits(Amount,18)
 	let tx = await wallet.sendTransaction({
