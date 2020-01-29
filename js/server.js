@@ -6,7 +6,7 @@ var gasprice = 7000000000;
 
 var uCADContract
 
-var uCADContractAddress = '0xE6CC8c8cF673f13fc6090b4b7B619E61C473CD34';
+var uCADContractAddress = '0x11f9F732DA223e0D546B96bE8882faF7ae24350A';
 var uCADABI = [
 	{
 		"constant": false,
@@ -1303,9 +1303,11 @@ app.listen(process.env.PORT || 7777, function () {
 
 async function initialize(){
 	let privkey = ""
-  let wallet = new ethers.Wallet.createRandom().connect(ethers.getDefaultProvider("ropsten"));
+  //let wallet = new ethers.Wallet.createRandom().connect(ethers.getDefaultProvider("ropsten"));
+	let provider = new ethers.getDefaultProvider("ropsten")
+	let wallet = new ethers.Wallet(privkey, provider);
+
 	console.log(wallet.address)
-  let provider = ethers.getDefaultProvider('ropsten');
 
     uCADContract = await new ethers.Contract(uCADContractAddress, uCADABI, wallet);
 
