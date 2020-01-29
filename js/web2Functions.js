@@ -1,27 +1,28 @@
-function httpGETmetaTransfer(from, to, amount, fee, nonce, signature) {
+let serverLocation = "https://tranquil-island-43334.herokuapp.com"
 
+function httpGETmetaTransfer(from, to, amount, fee, nonce, signature) {
+  console.log("updated")
   var params = "?" + "from=" + from.toString() + "&to=" +  to.toString() + "&amount=" + amount.toString() + "&fee=" + fee.toString() + "&nonce=" + nonce.toString() + "&signature=" + signature.toString()
   console.log(params)
 
-   var xhttp = createCORSRequest('GET', "http://localhost:7777/metaTransfer" + params);
+   var xhttp = createCORSRequest('GET', serverLocation + "/metaTransfer" + params);
    sendRequest(xhttp)
 }
 
 function httpGETmetaApprove(from, to, amount, fee, nonce, signature) {
   var params = "?" + "from=" + from.toString() + "&to=" +  to.toString() + "&amount=" + amount.toString() + "&fee=" + fee.toString() + "&nonce=" + nonce.toString() + "&signature=" + signature.toString()
    console.log(params)
-
-  var xhttp = createCORSRequest('GET', "http://localhost:7777/metaApprove" + params);
+   console.log("updated")
+  var xhttp = createCORSRequest('GET', serverLocation + "/metaApprove" + params);
   sendRequest(xhttp)
 }
 function httpGETmetaTransferFrom(from, to, by, amount, fee, nonce,signature) {
   var params = "?" + "from=" + from.toString() + "&to=" +  to.toString() + "&by=" +  by.toString() + "&amount=" + amount.toString() + "&fee=" + fee.toString() + "&nonce=" + nonce.toString() + "&signature=" + signature.toString()
    console.log(params)
 
-  var xhttp = createCORSRequest('GET', "http://localhost:7777/metaTransferFrom" + params);
+  var xhttp = createCORSRequest('GET', serverLocation + "/metaTransferFrom" + params);
   sendRequest(xhttp)
 }
-
 
 function sendRequest(xhttp){
   if (!xhttp) {

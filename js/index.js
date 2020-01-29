@@ -356,7 +356,6 @@ async function switchWallet() {
 
 		await switchNetwork()
 		let mnemonic = localStorage.getItem("mnemonic")
-		console.log(mnemonic)
 		if (mnemonic == undefined) {
 			wallet = ethers.Wallet.createRandom().connect(ethers.getDefaultProvider(networkName));
 			localStorage.setItem("mnemonic",wallet.signingKey.mnemonic)
